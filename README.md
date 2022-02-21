@@ -1,2 +1,4 @@
 # Snake-game
-My first attempt at creating a game in C.
+Snake game in C using MS Console API and ANSI escape sequences, with plan to make it portable
+
+Comming soon!
