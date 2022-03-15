@@ -19,7 +19,7 @@ Instead, I decided to rely upon ANSI escape sequences and some Windows Console A
 
 **Limitations:**
 - the graphics will be messed up if the console window is resized during the game (this is an easy fix but I didn't consider it important for this release)
-- the game menu is not yet fully implemented, although core functionality exits
+- the game menu is not yet fully implemented, although core functionality exists
 #
 **Compiling and running:**
 - this game can be compiled in MS Visual Studio or in Mingw/ MSYS environment
