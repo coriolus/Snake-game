@@ -24,8 +24,8 @@ Instead, I decided to rely upon ANSI escape sequences and some Windows Console A
 **Compiling and running:**
 - this game can be compiled in MS Visual Studio or in Mingw/ MSYS environment
 - to compile in MS Visual Studio put all .c files in source folder and .h files in header folder and select `build` from the menu
-- to compile in Mingw/ Msys environment download /src folder, Makefile and snake.txt and type the following command in the terminal: `make`
-- to start the game just type `snake` in the terminal after compiling
+- to compile in Mingw/ Msys environment download a zip file of the repository (green button Code/ download ZIP) and type the following command at the terminal: `make`
+- to start the game just type `snake` at the terminal after compiling
 
 **Playing the game:**
 - use arrow keys to control snake's movement
