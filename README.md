@@ -8,7 +8,7 @@ This is a snake game made in C using ANSI escape sequences and some Windows Cons
 
 I decided not to use ncurses library because it would probably be overkill for this project and because not everyone wants to install it. Also, I decided against using functions from conio.h because it is pretty much deprecated and not portable. 
 
-Instead, I decided to use ANSI escape sequences and some Windows Console API calls. Starting from Windows 10 version 1511, ANSI escape sequences are supported in Windows Console and Windows Terminal supports them by default. So, anyone with a recent release of Windows 10 or with Windows 11 should be able to run this game.
+Instead, I decided to rely upon ANSI escape sequences and some Windows Console API calls. Starting from Windows 10 version 1511, ANSI escape sequences are supported in Windows Console and Windows Terminal supports them by default. So, anyone with a recent release of Windows 10 or with Windows 11 should be able to run this game.
 
 **Game features:**
 -  snake's position on the screen is stored in three separate structures, the head, the body and the tail. The body only stores coordinates when a snake changes direction, so not every coordinate is stored
