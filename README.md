@@ -22,11 +22,15 @@ Instead, I relied upon ANSI escape sequences and some Windows Console API calls.
 - the graphics will be messed up if the console window is resized during the game (this is an easy fix but I didn't consider it important for this release)
 - the game menu is not yet fully implemented, although core functionality exists
 #
+**Cloning or downloading the repository:**
+
+If you have git installed you can clone the repository using the following command: `git clone https://github.com/pmatkov/Snake-game`. If not, you can download a zip file of the repository (code/ download ZIP).
+
 **Compiling and running:**
 - this game can be compiled in MS Visual Studio or in Mingw/ MSYS environment
 - to compile in MS Visual Studio put all .c files in source folder and .h files in header folder and select `build` from the menu
-- to compile in Mingw/ Msys environment download a zip file of the repository (code/ download ZIP) and type the following command at the terminal: `make` (build prerequisites: *gcc* and *make*)
-- to start the game just type `snake` at the terminal after compiling
+- to compile in Mingw/ Msys environment type the following command at the terminal: `make` (build prerequisites: *gcc* and *make*)
+- to start the game just type `snake` at the terminal
 
 **Playing the game:**
 - use arrow keys to control snake's movement
