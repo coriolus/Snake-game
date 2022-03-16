@@ -86,7 +86,7 @@ void add_food(Snake *snake, Food *food, FoodType ftype, Timer *timer, Stats *sta
     if (ftype == standard)
     {
         /* by default, 2/3 of time a single food item will be added,
-         and 1/3 of the time a more than one item will be added */
+         and 1/3 of the time a group of items will be added */
         if (!food->stdCount && !food->foodToAdd)
         {
             if (rand() % 3 == 0)
@@ -124,7 +124,7 @@ void add_food(Snake *snake, Food *food, FoodType ftype, Timer *timer, Stats *sta
     }
 }
 
-// get some random number to set the modifier
+// get some random number and set the modifier
 int set_modifier(Food *food, Timer *timer, Stats *stats)
 {
     if (stats->lives < MAX_LIVES && !stats->lifeAdded)
