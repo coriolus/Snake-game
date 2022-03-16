@@ -29,7 +29,7 @@ Position set_food_position(Snake *, Food *);
 void display_food(Eats *);
 void remove_food(Food *, Eats *);
 
-// define max food according to the size of the console window
+// se max food according to the size of console window
 void set_max_food(Food *food)
 {
     Border border = get_border_coordinates();
@@ -51,7 +51,7 @@ int set_random_delay(int min, int max)
     return rand() % (max - min + 1) + min;
 }
 
-// check food status and add or remove if necessary
+// check food status and add/ remove if necessary
 void check_food(Snake *snake, Food *food, Timer *timer, Stats *stats)
 {   
     if ((!food->stdCount && !food->foodToAdd) || (food->foodToAdd && timer->elapsed - timer->resetStd > timer->delay[stdStart]))
@@ -86,7 +86,7 @@ void add_food(Snake *snake, Food *food, FoodType ftype, Timer *timer, Stats *sta
     if (ftype == standard)
     {
         /* by default, 2/3 of time a single food item will be added,
-         and 1/3 of the time a group of items will be added */
+         and 1/3 of the time a more than one item will be added */
         if (!food->stdCount && !food->foodToAdd)
         {
             if (rand() % 3 == 0)
