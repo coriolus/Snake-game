@@ -26,7 +26,6 @@ int set_random_delay(int, int);
 void add_food(Snake *, Food *, FoodType, Timer *, Stats*);
 int set_modifier(Food *, Timer *, Stats *);
 Position set_food_position(Snake *, Food *);
-int is_food_collision(Food *, Position);
 void display_food(Eats *);
 void remove_food(Food *, Eats *);
 
