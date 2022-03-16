@@ -99,7 +99,6 @@ void save_hiscore(Stats *stats)
     fclose(fp);
 }
 
-// update hiscore in struct variable
 void update_hiscore(Stats *stats)
 {
     stats->hiscore = stats->score;
@@ -139,7 +138,7 @@ void update_score(Stats *stats, Eats *eats)
     printf("\t\t\t\t\t%8d", stats->score);
 }
 
-// display characters signaling that modifier was activated
+// display food modifier
 void display_modifier(Eats *eats)
 {
     move_cursor(1, TOP_BORDER_OFFSET);
@@ -152,7 +151,7 @@ void display_modifier(Eats *eats)
         printf("\t\t\t\t%s%s%s", BRIGHT_CYAN, "+1", RESET_COLOR);
 }
 
-// erase characters signaling that modifier was activated
+// hide food modifier
 void hide_modifier(void)
 {
     move_cursor(1, TOP_BORDER_OFFSET);
