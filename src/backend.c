@@ -320,7 +320,7 @@ void game_paused(void)
 // set new head position
 void change_head_position(Snake *snake, int newDir)
 {
-    // if there is a change in direction, we increase the segment count 
+    // if there is a change in direction, increase the segment count 
     if (snake->dir != newDir)
     {
         if (snake->allocatedMemory - snake->segCount == 1)
@@ -381,7 +381,7 @@ void change_tail_position(Snake *snake)
         remove_segment(snake);
 }
 
- // set tail direction according to the last segment position
+ // set tail direction
 int set_tail_direction(Snake *snake)
 {
     int dir;
@@ -403,7 +403,7 @@ void remove_segment(Snake *snake)
     snake->segCount--;
 }
 
-// A single snake segment consists of two characters
+// display starting position - a single snake segment consists of two chars "[]"
 void display_starting_position(Snake *snake)
 {
     move_cursor(snake->tail.pos.x, snake->tail.pos.y);
