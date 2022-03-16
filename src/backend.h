@@ -9,7 +9,6 @@
 
 void run_game(void);
 int is_snake(Snake *, Position, int);
-Eats * is_food(Food *, Position);
 int is_same_position(Position, Position);
 
 #endif /* BACKEND_H */
