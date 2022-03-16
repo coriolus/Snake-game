@@ -43,7 +43,7 @@ void set_up_console(int firstRun)
     display_stats();
 }
 
-// enable ANSI escape sequences in Windows Console
+// enable ANSI escape sequences in console
 int enable_vt_mode(void)
 {
     DWORD mode;
@@ -107,7 +107,7 @@ void load_intro(void)
 
     FILE *fp = fopen("snake.txt", "r");
 
-    // if the file isn't found display backup logo
+    // display backup logo if the file can't be opened
     if (fp == NULL)
         display_backup_logo();
     else
@@ -133,7 +133,7 @@ void load_intro(void)
             if (buff[strlen(buff)-1] == '\n')
                 buff[strlen(buff)-1] = '\0';
             
-            // allocate memory for each string and copy the string from the buffer to allocated memory
+            // allocate memory for each string and copy strings from the buffer
             arr[i] = (char *) calloc(strlen(buff) + 1, sizeof(char));
             if (arr[i] == NULL)
             {
