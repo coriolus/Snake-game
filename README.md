@@ -1,4 +1,5 @@
 ## Snake game
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This is a snake game made in C using ANSI escape sequences and some Windows Console API calls for terminal control. 
 
