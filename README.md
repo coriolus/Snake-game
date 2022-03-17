@@ -24,7 +24,7 @@ Instead, I relied upon ANSI escape sequences and some Windows Console API calls.
 #
 **Cloning or downloading the repository:**
 
-If you have git installed you can clone the repository using the following command: `git clone https://github.com/pmatkov/Snake-game`. If not, you can download a zip file of the repository (code/ download ZIP).
+If you have git you can clone this repository by typing the following command at the terminal: `git clone https://github.com/pmatkov/Snake-game`. If not, you can download a zip file of the repository (code/ download ZIP).
 
 **Compiling and running:**
 - this game can be compiled in MS Visual Studio or in Mingw/ MSYS environment
