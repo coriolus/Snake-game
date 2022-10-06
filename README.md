@@ -1,22 +1,19 @@
 ## Snake game
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)]
 
-This is a snake game made in C using ANSI escape sequences and some Windows Console API calls for terminal control. 
+This is a snake game made in C using Windows API calls for terminal control (Windows 10 or 11 is necessary to play)
 
 ![Screenshot from the game](snake.png)
 
 **Background:**
 
-I decided not to use ncurses library because it would probably be overkill for this project and because not everyone wants to install it. Also, I decided against using functions from conio.h because it is pretty much deprecated and not portable. 
-
-Instead, I relied upon ANSI escape sequences and some Windows Console API calls. Starting from Windows 10 version 1511, ANSI escape sequences are supported in Windows Console and Windows Terminal supports them by default. So, anyone with a recent release of Windows 10 or Windows 11 should be able to run this game.
+After deciding to make this game (a long overdue project), I had to tackle the problem of terminal control to achieve the classic look of this game in GUI-like console application. The options on table were - `ncurses` library, which is probably a standard way to implement a portable solution, `conio` library from the old days of MS-DOS compilers and Windows API calls. It seemed there are plenty of resources online how to create a console game with `ncurses` library but not many how to do that with Windows API. I was up for a challenge so I decided not to use `ncurses`, and instead use just Windows API calls with ANSI escape sequences (these sequences are supported since Windows 10 version 1511).
 
 **Game features:**
 -  snake's position on the screen is stored in three separate structures, the head, the body and the tail. The body only stores coordinates when a snake changes direction, so not every coordinate is stored
 - the game uses alternate screen buffer to switch back and forth between game menu and main screen
 - different types of food are available with modifiers which appear at random intervals
 - the game features ASCII intro graphics
-
 
 **Limitations:**
 - the graphics will be messed up if the console window is resized during the game (this is an easy fix but I didn't consider it important for this release)
@@ -28,9 +25,9 @@ If you have git you can clone this repository by typing the following command at
 
 **Compiling and running:**
 - this game can be compiled in MS Visual Studio or in Mingw/ MSYS environment
-- to compile in MS Visual Studio put all .c files in source folder and .h files in header folder and select `build` from the menu
+- to compile in MS Visual Studio put all .c files in the source folder and .h files in the header folder and select `build` from the menu
 - to compile in Mingw/ Msys environment type the following command at the terminal: `make` (build prerequisites: *gcc* and *make*)
-- to start the game just type `snake` at the terminal
+- to start the game type `snake` at the terminal
 
 **Playing the game:**
 - use arrow keys to control snake's movement
