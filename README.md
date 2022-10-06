@@ -1,5 +1,5 @@
 ## Snake game
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)]
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 This is a snake game made in C using Windows API calls for terminal control (Windows 10 or 11 is necessary to play)
 
@@ -7,7 +7,9 @@ This is a snake game made in C using Windows API calls for terminal control (Win
 
 **Background:**
 
-After deciding to make this game (a long overdue project), I had to tackle the problem of terminal control to achieve the classic look of this game in GUI-like console application. The options on table were - `ncurses` library, which is probably a standard way to implement a portable solution, `conio` library from the old days of MS-DOS compilers and Windows API calls. It seemed there are plenty of resources online how to create a console game with `ncurses` library but not many how to do that with Windows API. I was up for a challenge so I decided not to use `ncurses`, and instead use just Windows API calls with ANSI escape sequences (these sequences are supported since Windows 10 version 1511).
+After deciding to make this game (a long overdue project), I had to tackle the problem of terminal control to achieve the classic look of this game in GUI-like console application. 
+
+The options on table were - `ncurses` library, which is probably a standard way to implement a portable solution, `conio` library from the old days of MS-DOS compilers and Windows API calls. It seemed there are plenty of resources online how to create a console game with `ncurses` library but not many how to do that with Windows API. I was up for a challenge so I decided not to use `ncurses`, and instead use just Windows API calls with ANSI escape sequences (these sequences are supported since Windows 10 version 1511).
 
 **Game features:**
 -  snake's position on the screen is stored in three separate structures, the head, the body and the tail. The body only stores coordinates when a snake changes direction, so not every coordinate is stored
