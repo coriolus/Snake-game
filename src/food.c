@@ -29,7 +29,7 @@ Position set_food_position(Snake *, Food *);
 void display_food(Eats *);
 void remove_food(Food *, Eats *);
 
-// se max food according to the size of console window
+// adjust available food according to the size of the console window
 void set_max_food(Food *food)
 {
     Border border = get_border_coordinates();
@@ -45,13 +45,13 @@ void set_max_food(Food *food)
         food->maxFood = MAX_FOOD_3;
 }
 
-// get some random delay value 
+// set time delay in which the food will apeear
 int set_random_delay(int min, int max)
 {
     return rand() % (max - min + 1) + min;
 }
 
-// check food status and add/ remove if necessary
+// check the available food and add more or remove if not collected
 void check_food(Snake *snake, Food *food, Timer *timer, Stats *stats)
 {   
     if ((!food->stdCount && !food->foodToAdd) || (food->foodToAdd && timer->elapsed - timer->resetStd > timer->delay[stdStart]))
@@ -60,8 +60,7 @@ void check_food(Snake *snake, Food *food, Timer *timer, Stats *stats)
         timer->delay[stdStart] = set_random_delay(DELAY_MIN_STD, DELAY_MAX_STD);
         timer->resetStd = timer->elapsed;
     }
-    /* by default, special types of food (value and hidden) should appear in
-    longer intervals and should disapper if not collected in time */
+    // special types of food (value and hidden) appear in longer intervals and disapper if not collected
     if (!food->valCount && timer->elapsed - timer->resetVal > timer->delay[valStart])
     {
         add_food(snake, food, value, timer, stats);
@@ -81,12 +80,12 @@ void check_food(Snake *snake, Food *food, Timer *timer, Stats *stats)
         remove_food(food, &food->hidden);
 }
 
+// add more food
 void add_food(Snake *snake, Food *food, FoodType ftype, Timer *timer, Stats *stats)
 {
     if (ftype == standard)
     {
-        /* by default, 2/3 of time a single food item will be added,
-         and 1/3 of the time a group of items will be added */
+        // a single food item will be added 2/3 of the time and the rest of the time a group of items will be added
         if (!food->stdCount && !food->foodToAdd)
         {
             if (rand() % 3 == 0)
@@ -94,8 +93,7 @@ void add_food(Snake *snake, Food *food, FoodType ftype, Timer *timer, Stats *sta
             else
                 food->foodToAdd = 1;
         }
-
-        // new food will be stored in the first empty position in the array
+        
         if (food->foodToAdd)
         {   
             int i;
@@ -108,7 +106,7 @@ void add_food(Snake *snake, Food *food, FoodType ftype, Timer *timer, Stats *sta
             food->foodToAdd--;
         }
     }
-    // special types of food (value and hidden) appear individually and at random intervals
+    // special types of food (value and hidden) appear randomly and allways as single items
     else if (ftype == value)
     {
         food->value.pos = set_food_position(snake, food);
@@ -124,7 +122,7 @@ void add_food(Snake *snake, Food *food, FoodType ftype, Timer *timer, Stats *sta
     }
 }
 
-// get some random number and set the modifier
+// set the modifier for hidden food (speed or lives)
 int set_modifier(Food *food, Timer *timer, Stats *stats)
 {
     if (stats->lives < MAX_LIVES && !stats->lifeAdded)
@@ -133,16 +131,16 @@ int set_modifier(Food *food, Timer *timer, Stats *stats)
         return rand() % 2;
 }
 
-// set food position
+// set food position on the screen
 Position set_food_position(Snake *snake, Food *food)
 {
     Position pos;
 
     Border border = get_border_coordinates();
     
-    // get some random coordinates and check if they are available
+    // set random coordinates
     do
-    {   // we accept only even x coordinates since our snake segment is 2 chars wide
+    {   // only even numbers are accepted for x axxis since the snake segment is 2 chars wide
         while ((pos.x = (rand() % (border.right - border.left - 1) + border.left + 1)) % 2 == 1);
         pos.y = rand() % (border.bottom - border.top - 1) + border.top + 1;
     } while (is_food(food, pos) || is_snake(snake, pos, CHECK_FOOD));
