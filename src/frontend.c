@@ -43,7 +43,7 @@ void set_up_console(int firstRun)
     display_stats();
 }
 
-// enable ANSI escape sequences in console
+// enable ANSI escape sequences
 int enable_vt_mode(void)
 {
     DWORD mode;
@@ -82,7 +82,7 @@ int min_window_size(void)
         clear_scrollback();
         hide_cursor();
 
-        // display warning message if the size is too small and exit the program
+        // warn if the size of the console window is too small
         move_cursor(window.cols /2 - (int) strlen(WINDOW_SIZE_MSG1) /2, window.rows /2);
         printf("%s\n", WINDOW_SIZE_MSG1);
         move_cursor(window.cols /2 - (int) strlen(WINDOW_SIZE_MSG2) /2, window.rows /2 + 1);
@@ -99,7 +99,7 @@ int min_window_size(void)
     return 1;
 }
 
-// load intro screen
+// load intro screen (ASCII art)
 void load_intro(void)
 {
     int ch, lines = 0, lineLength = 0;
@@ -107,12 +107,12 @@ void load_intro(void)
 
     FILE *fp = fopen("snake.txt", "r");
 
-    // display backup logo if the file can't be opened
+    // display backup logo in case the file can't be found
     if (fp == NULL)
         display_backup_logo();
     else
     {
-        // count lines to determine logo height
+        // find out the height of the ASCII art
         while ((ch = fgetc(fp)) != EOF)
         {
             if (ch == '\n')
@@ -133,7 +133,7 @@ void load_intro(void)
             if (buff[strlen(buff)-1] == '\n')
                 buff[strlen(buff)-1] = '\0';
             
-            // allocate memory for each string and copy strings from the buffer
+            // allocate memory for the ASCII art and copy strings from the buffer
             arr[i] = (char *) calloc(strlen(buff) + 1, sizeof(char));
             if (arr[i] == NULL)
             {
@@ -142,13 +142,13 @@ void load_intro(void)
             }
             strcpy(arr[i], buff);
 
-            // determine logo width
+            // find out the width of the ASCII art
             if (strlen(buff) > lineLength)
                 lineLength = strlen(buff);
         }   
         fclose(fp);
 
-        // display main logo
+        // display ASCII art
         display_logo(arr, lines, lineLength);
 
         for (int i = 0; i < lines; i++)
@@ -170,7 +170,7 @@ void display_logo(char **arr, int lines, int lineLength)
     // the size of the window (rows x cols) must be >= than lines x lineLength
     Window window = get_window_size();
 
-    // move cursor to the center of the window
+    // position cursor at the center of the console window
     move_cursor(window.cols /2 - lineLength/ 2, window.rows /2 - lines/ 2);
     save_cursor_position();
 
@@ -189,6 +189,7 @@ void display_logo(char **arr, int lines, int lineLength)
     show_cursor();
 }
 
+// display backup logo in case snake.txt can't be found
 void display_backup_logo(void)
 {
     char logo[LOGO_HEIGHT][LOGO_LENGTH] = {"##### #    #    #    #    # #####",
@@ -205,7 +206,7 @@ void display_backup_logo(void)
 
     Window window = get_window_size();
 
-    // move cursor to the center of the window
+    // position cursor at the center of the console window
     move_cursor(window.cols /2 - LOGO_LENGTH/ 2, window.rows /2 - LOGO_HEIGHT /2);
     save_cursor_position();
 
@@ -227,7 +228,7 @@ void display_backup_logo(void)
     show_cursor();
 }
 
-// create rectangular bordered area
+// create rectangular borders
 void draw_borders(void)
 {     
     clear_screen();
@@ -257,10 +258,10 @@ void draw_horizontal_border(Border border, int isTop)
     enable_line_drawing_mode();
     set_color(MAGENTA);
 
-    // print corners
+    // draw corners
     putchar(isTop ? TOP_LEFT_CORNER : BOTTOM_LEFT_CORNER);
 
-    // print horizontal lines
+    // draw horizontal lines
     for (int i = 0; i < border.right - 2; i++)
         printf("%c", HORIZONTAL_BAR);
 
@@ -275,7 +276,7 @@ void draw_vertical_border(Border border, int isLeft)
     enable_line_drawing_mode();
     set_color(MAGENTA);
 
-    // print vertical lines
+    // draw vertical lines
     for (int i = 0; i < border.bottom - TOP_BORDER_OFFSET - 2; i++)
     {
         save_cursor_position();
@@ -288,7 +289,7 @@ void draw_vertical_border(Border border, int isLeft)
     disable_line_drawing_mode();
 }
 
-// get console window size
+// get the size of the console window
 Window get_window_size(void)
 {
     Window window;
@@ -307,7 +308,7 @@ Window get_window_size(void)
     return window;
 }
 
-// get border coordinates
+// get coordinates of the borders
 Border get_border_coordinates(void)
 {
     Border border;
