@@ -95,7 +95,7 @@ void init_snake(Snake *snake)
     display_starting_position(snake);
 }
 
-// allocate initial memory and reallocate when necessary
+// allocate initial memory and reallocate if necessary
 void allocate_memory(Snake *snake, int blockSize)
 {
     Position *temp = (Position *) realloc(snake->seg, sizeof(Position) * blockSize);
@@ -109,7 +109,7 @@ void allocate_memory(Snake *snake, int blockSize)
     }
 }
 
-// set starting position
+// set starting position for the snake
 void set_starting_position(Snake *snake)
 {    
     Window window = get_window_size();
@@ -124,6 +124,7 @@ void set_starting_position(Snake *snake)
     snake->tail.pos.y = snake->head.pos.y = window.rows /2 + TOP_BORDER_OFFSET;
 }
 
+// the main game logic
 void move_snake(Snake *snake, Food *food, Timer *timer, Stats *stats)
 {   
     int speedMod[] = {SLOW, FAST};
@@ -147,13 +148,14 @@ void move_snake(Snake *snake, Food *food, Timer *timer, Stats *stats)
 
         int newDir = get_next_move(snake->dir, stats);
 
-        // adjust timer if the menu was open
+        // pause the timer if the menu is open and resume when the game is resumed
         timer->begin += stop_timer(timer->end) - timer->begin - timer->elapsed;
 
         check_modifier(snake, timer, stats);
         check_food(snake, food, timer, stats);
         change_head_position(snake, newDir);
 
+        // check for collisions
         if (is_border(snake) || (snake->segCount >= 3 && is_snake(snake, snake->head.pos, CHECK_SNAKE)))
         {   
             if (stats->lives)
@@ -163,6 +165,7 @@ void move_snake(Snake *snake, Food *food, Timer *timer, Stats *stats)
             break;
         }
 
+        // check for food
         if ((eats = is_food(food, snake->head.pos)) != NULL)
         {
             update_score(stats, eats);
@@ -233,9 +236,10 @@ Direction get_next_move(Direction dir, Stats *stats)
     {
         if (!ReadConsoleInput(hstdIn, buff, MAX_EVENTS, &eventsRead))
             printf("Error reading console input.");
-
+        
         for (int i = 0; i < eventsRead; i++)
         {
+            // check for key presses signaling a change in direction, a pause or open menu
             if (buff[i].EventType == KEY_EVENT && buff[i].Event.KeyEvent.bKeyDown)
             {
                 switch (buff[i].Event.KeyEvent.wVirtualKeyCode)
@@ -269,6 +273,7 @@ Direction get_next_move(Direction dir, Stats *stats)
     return dir;
 }
 
+// if the game was paused
 void game_paused(void)
 {
     char *gamePaused[] = {"Game paused", "Press [space] to continue"};
@@ -317,7 +322,7 @@ void game_paused(void)
     }
 }
 
-// set new head position
+// change position of the head
 void change_head_position(Snake *snake, int newDir)
 {
     // if there is a change in direction, increase the segment count 
@@ -350,7 +355,7 @@ void change_head_position(Snake *snake, int newDir)
     }
 }
 
-// set new tail position
+// change position of the tail
 void change_tail_position(Snake *snake)
 {
     int dir;
@@ -381,7 +386,7 @@ void change_tail_position(Snake *snake)
         remove_segment(snake);
 }
 
- // set tail direction
+ // we track tail direction so that we can remove the last part of the tail when the snake moves
 int set_tail_direction(Snake *snake)
 {
     int dir;
@@ -395,7 +400,7 @@ int set_tail_direction(Snake *snake)
     return dir;
 }
 
-// remove last segment if the tail is at its position
+// delete coordinates of the snake segment if the snake is not at this position
 void remove_segment(Snake *snake)
 {
      for (int i = 0; i < snake->segCount - 1; i++)
@@ -403,7 +408,7 @@ void remove_segment(Snake *snake)
     snake->segCount--;
 }
 
-// display starting position - a single snake segment consists of two chars "[]"
+// display starting position (a snake segment consists of two brackets - "[]")
 void display_starting_position(Snake *snake)
 {
     move_cursor(snake->tail.pos.x, snake->tail.pos.y);
@@ -413,7 +418,7 @@ void display_starting_position(Snake *snake)
     printf("%s%s%s", BRIGHT_CYAN, SNAKE_SEG, RESET_COLOR);
 }
 
-// display next position
+// display snake in the new position (move by one segment)
 void display_new_position(Snake *snake, int growSnake)
 {   
     move_cursor(snake->head.pos.x, snake->head.pos.y);
@@ -429,7 +434,7 @@ void display_new_position(Snake *snake, int growSnake)
     }
 }
 
-// check if snake will collide with the border
+// check if the snake will collide with the border
 int is_border(Snake *snake)
 {
     Border border = get_border_coordinates();
@@ -437,7 +442,7 @@ int is_border(Snake *snake)
     return snake->head.pos.x + 1 == border.left || snake->head.pos.x == border.right || snake->head.pos.y == border.top || snake->head.pos.y == border.bottom;
 }
 
-// check if snake will collide with itself
+// check if the snake will collide with itself
 int is_snake(Snake *snake, Position obj, int objectType)
 {
     Position seg;
@@ -491,7 +496,7 @@ int is_same_position(Position p1, Position p2)
     return (p1.x == p2.x && p1.y == p2.y);
 }
 
-// check if snake's head or food intersects with the snake
+// check for intersection with the snake
 int is_intersection(Position seg1, Position seg2, Position obj)
 {
     if (seg1.x == seg2.x && seg1.x == obj.x)
@@ -502,7 +507,7 @@ int is_intersection(Position seg1, Position seg2, Position obj)
     return 0;
 }
 
-// clear board
+// clear the screen
 void clear_board(void)
 {
     Border border = get_border_coordinates();
@@ -516,7 +521,7 @@ void clear_board(void)
     }
 }
 
-// display game over message
+// if no more lives left
 void display_game_over_msg(void)
 {
     char *gameOverMsg = "GAME OVER";
